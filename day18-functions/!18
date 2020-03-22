@@ -1,0 +1,8 @@
+//today's class is about,
+
+-setting default param values ->  es5(setting values inside the function), es6(setting values inside the parameters itself)
+-variable no.of arg,  arg less than param varabiles-> undefined ,arg more than param varabiles-> ignored
+-arguments object ->helps the function to accept variable number of arguments
+-arrow function -> fun.exp, call back function, 'this' keyword
+-iife -> immediately invoked function expression, to invoke the function as quick as the function is defined
+-pass by value -> copy of that variable value alone passed, pass by reference -> reference of that variable is passed

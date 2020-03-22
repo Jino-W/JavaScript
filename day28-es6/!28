@@ -1,0 +1,5 @@
+-> spread operator(es6) -> independent array, object
+-> Arrow function: An arrow function is a syntactically compact alternative to a regular function expression without its own binding to this, super
+-> reactjs.org
+-> inheritance - properties and methods of one class(parent) is available to you in another class(child)
+   keywords: extends, super(arg of child class) -> go on to call the same method in parent class

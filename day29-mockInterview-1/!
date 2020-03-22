@@ -1,0 +1,16 @@
+-- JavaScript | Type Conversion:
+
+- 1) Implicit Conversion: (Automatic Type Conversion)
+    -> There are various operator and functions in JavaScript which automatically converts a value to the right type like alert() function in JavaScript accepts any value and convert it into a string. 
+    -> ("3" + 1) = '31'      =>    here + operator stands for string concatenation in this case.
+    -> ("3" - 1) = 2  , ("3" * "2") = 6  ,  ("3" % "2") = 1  ,  ("3" + null) = 3null
+    -> 
+
+- 2) Explicit Conversion: 
+
+-- Associative Array:
+    -> 
+    -> association between the key and the value,  ->  array=[key1: 'value1',key2:'value2'];
+    -> You can retrieve a value via it key using array notation, ->  alert(array['key2']);
+
+

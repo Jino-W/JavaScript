@@ -1,0 +1,42 @@
+- es6 feature:
+->  - let   - const
+->  - for...of
+->  - template string  `${name}`
+->  - arrow function = () => {}    ,(behaivour of 'this' keyword)
+->  - 'this' key word(es6 feature)  -> instead of using object name we can use 'this' keyword to access the properties of the object, (inside the object)
+refers to the current object
+->  - function default parameters
+->  - Spread operator(independent object, array)
+
+day27:
+->  - short hand properties (object), if property and variable name are same use variable name
+->  - object,array destructure 
+         -> extract array, object values and put it in variables
+         -> Destructuring is a new feature introduced in ES6 to unpack values from arrays or properties from an object. 
+->  - es6 class definition (or) class keyword -> syntax change of constructor function
+      constructors: only for assigning default values to the property, initial value to the property.
+      new keyword - invoke the constructor
+
+- bable: 
+   -> bablejs.io
+   -> transpilers  es6 code to es5 code  (brower compatability)
+   -> Babel is both a transpiler and compiler as the words can be used interchangeably. 
+   -> Babel is a transpiler, which is a special type of compiler, so both terms are techincally correct.
+
+- transpiler: A transpiler transforms code from a higher level programming language to another high level programming language.
+
+- compiler: Whereas a compiler transforms code from a higher level programming language to a low level code (e.g. assembly or machine code) to make programs executable.
+
+- interpreter: 
+   -> A JavaScript engine is a program or an interpreter which executes JavaScript code. 
+   -> A JavaScript engine can be implemented as a standard interpreter, or just-in-time compiler that compiles JavaScript to bytecode in some form
+   -> JavaScript is an interpreted language, not a compiled language. 
+   -> A program such as C++ or Java needs to be compiled before it is run. 
+   -> The source code is passed through a program called a compiler, which translates it into bytecode that the machine understands and can execute. 
+   -> In contrast, JavaScript has no compilation step. 
+   -> Instead, an interpreter in the browser reads over the JavaScript code, interprets each line, and runs it. 
+   -> More modern browsers use a technology known as Just-In-Time (JIT) compilation, which compiles JavaScript to executable bytecode just as it is about to run.
+
+- reduce()
+
+- lexical scoping: scope (range of functionality) of a variable

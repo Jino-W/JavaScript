@@ -1,0 +1,93 @@
+http://technologies4.me//articles/snake-game-a32/onload-calculations-setup-p5/
+https://www.html5canvastutorials.com/tutorials/html5-canvas-lines/
+
+
+- The premise to this game is simple:
+
+The game takes place in an enclosed area
+The snake is made of segments that follow one another; each segment will effectively take the same path as the head (front of the snake)
+The snake is always moving - the player simply changes the direction of movement
+Randomly placed "food" appears on the map
+When the snake touches the food, it consumes it. The length of the snakes body increases, and the player gains a point
+If the snake touches the outer perimeter of the map, or another part of its own body, the game ends
+
+//---------------------------------------------------------------------------------------------------------------------------------
+
+- With this in mind, our game must complete the following basic process whilst the game is running:
+
+while [not lost game]:
+	if [user direction input]: change direction
+
+	nextPos = [position of snake head] + [movement in current direction]
+
+	if nextPos==[outside map bounds]: lost game
+	if nextPos==[in snake body except last entry]: lost game
+
+	[snake body].prepend( nextPos )
+
+	if nextPos==foodPos:
+		foodPos = [random map position, not on snake]
+		increase score
+	else:
+		[snake body].pop()
+With this in mind, lets look at how our snake game is put together.
+
+//---------------------------------------------------------------------------------------------------------------------------------
+
+
+In our Javascript file, (snake-game.js), we'll begin by creating some global variables. The first of these will store a reference to our Canvas elements 2D drawing context:
+
+var ctx = null;
+Additionally, we'll have some variables for keeping track of the frame rate of the game (for informational purposes), the currently elapsed game time and exact time of the last frame, and a boolean flag that determines whether or not we'll show the frame rate on the screen.
+
+var gameTime = 0, lastFrameTime = 0;
+var currentSecond = 0, frameCount = 0, framesLastSecond = 0;
+var showFramerate = false;
+We also need some offset variables - we'll use these to calculate where to draw the game on our canvas:
+
+var offsetX = 0;
+var offsetY = 0;
+We also want to store some information about the cursor. Our global mouseState object will store the last recorded x, y position of the cursor on the Canvas, and a click parameter - null if no new mouse click has been recorded, otherwise the position in the form of an array ([x, y]):
+
+var mouseState = {
+	x	: 0,
+	y	: 0,
+	click	: null
+};
+gameState
+The current state of the game is stored as an object with a number of attributes:
+
+screen - the current screen to draw
+dir - the current snake direction (up:0, right:1, down:2, left:3)
+moveDelay - the time, in milliseconds, to move 1 tile
+lastMove - the game time, in milliseconds, the snake began moving from its current tile to the next tile
+snake - an array of map coordinate, starting at the snakes head and working to its tail, containing all of the segments of the snake
+newBlock - the coordinates of the next piece of food the snake can consume
+mapW, mapH - the map dimensions, in tiles
+tileW, tileH - the map tile dimensions, in pixels
+score - the current score during a game
+newBest - a boolean flag to determine if the score the player has achieved at the end of a game is higher than the current bestScore
+bestScore - the best score the player has achieved this session in a game
+
+
+var gameState = {
+	screen		: 'menu',
+	
+	dir		: 0,
+	moveDelay	: 300,
+	lastMove	: 0,
+	
+	snake		: [],
+	newBlock	: null,
+	
+	mapW		: 14,
+	mapH		: 14,
+	tileW		: 20,
+	tileH		: 20,
+	
+	score		: 0,
+	newBest		: false,
+	bestScore	: 0
+};
+
+//---------------------------------------------------------------------------------------------------------------------------------

@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<script type="text/javascript" src="snake-game.js"></script>
+
+</head>
+<body>
+
+<canvas id="game" width="300" height="400"></canvas>
+
+</body>
+
+
+<script>
+
+
+//
+function startGame()
+{
+	// Reset the game time
+	gameTime	= 0;
+	lastFrameTime	= 0;
+	
+	// Reset all of the gameState attributes to their
+	// starting values (except those that need to persist
+	// between games)
+	gameState.snake.length		= 0;
+	gameState.dir			= 0;
+	gameState.score			= 0;
+	gameState.lastMove		= 0;
+	gameState.screen		= 'playing';
+	gameState.newBest		= false;
+	
+	// Create the snake head at the centre of the map
+	gameState.snake.push([
+		Math.floor(gameState.mapW / 2),
+		Math.floor(gameState.mapH / 2)
+	]);
+	
+	// Place a random "food" block on the map
+	placeNewBlock();
+}
+
+//------------------------------------------------------------------------------------------------------------------------------
+
+function placeNewBlock()
+{   //do...while() ->This loop will always be executed at least once, even if the condition is false, because the code block is executed before the condition is tested:
+	do {    
+		// Choose a random coordinate somewhere on the map
+		var x = Math.floor(Math.random() * gameState.mapW);
+		var y = Math.floor(Math.random() * gameState.mapH);
+		
+		// Currently we don't think this block falls on the
+		// snakes body
+		var onSnake = false;
+		
+		// Loop through the snakes body segments
+		for(var s in gameState.snake)
+		{
+			// If this is on the snakes body, change our
+			// onSnake value to true
+			if(gameState.snake[s][0]==x &&
+				gameState.snake[s][1]==y)
+			{
+				onSnake = true;
+				break;
+			}
+		}
+		
+		// If the coordinates are not on the snakes body,
+		// place the newBlock here and exit out of the
+		// loop and function
+		if(!onSnake)
+		{
+			gameState.newBlock = [x, y];
+			break;
+		}
+	
+	// Keep trying until the block can be placed
+	} while(true);
+}
+
+//------------------------------------------------------------------------------------------------------------------------------
+
+
+function updateGame()
+{
+	// Depending on the current screen being displayed, we
+	// handle game updates differently
+	
+	if(gameState.screen=='menu')
+	{
+		if(mouseState.click!=null)
+		{
+			// If there's been a click on the screen and
+			// it falls on the "New Game" line of text,
+			// call the startGame function
+			if(mouseState.click[1] >= 150 &&
+				mouseState.click[1] <= 220)
+			{
+				startGame();
+			}
+		}
+		
+		// Clear the click state (we've done the processing
+		// for it already)
+		mouseState.click = null;
+	}
+	else if(gameState.screen=='playing')
+	{
+		// If enough time hasn't elapsed since the snake began
+		// moving from the previous tile to the next, we don't
+		// need to do anything yet, so leave the function
+		if((gameTime - gameState.lastMove) < gameState.moveDelay)
+		{
+			return;
+		}
+		
+		// Create a temporary variable storing the current
+		// position of the snakes head, and also the current
+		// direction of the snake
+		var tmp = gameState.snake[0];
+		var head = [tmp[0], tmp[1]];
+		var dir = gameState.dir;
+
+		// If the next position of the snakes head falls outside
+		// of the maps bounds, we've lost; call gameOver
+		//Down:0, Right:1, Up:2, Left:3
+		if(dir==0 && head[1]==0) { gameOver(); }
+		else if(dir==2 && head[1]==(gameState.mapH-1)) { gameOver(); }
+		else if(dir==3 && head[0]==0) { gameOver(); }
+		else if(dir==1 && head[0]==(gameState.mapW-1)) { gameOver(); }
+		
+		// Modify our head variable to the next position the
+		// snakes head will occupy
+		//Down:0, Right:1, Up:2, Left:3
+		if(dir==0) { head[1]-= 1; }                //* we can also use switch case here
+		else if(dir==2) { head[1]+= 1; }
+		else if(dir==1) { head[0]+= 1; }
+		else if(dir==3) { head[0]-= 1; }
+		
+		// Loop through the snake body segments
+		for(var s in gameState.snake)
+		{
+			// If this is the end of the snake, ignore it
+			if(s==(gameState.snake.length-1)) { break; }
+			
+			// If the next position of the snakes head falls
+			// on part of the snakes body, gameOver
+			if(gameState.snake[s][0]==head[0] &&
+				gameState.snake[s][1]==head[1])
+			{
+				gameOver();
+				break;
+			}
+		}
+
+		// If gameOver has been called, it will have changed
+		// the current screen.  In this case, exit the function
+		if(gameState.screen=='menu') { return; }
+		
+		// Put the new head position on the start of the snake
+		// body array and update the lastMove to the current gameTime
+		gameState.snake.unshift(head);
+		gameState.lastMove = gameTime;
+		
+		// If the new head position is the same as the food position,
+		// increase the score and place a random new food block.
+		// Otherwise, remove the tail of the snake.
+		if(gameState.newBlock[0]==head[0] &&
+			gameState.newBlock[1]==head[1])
+		{
+			gameState.score += 1;
+			placeNewBlock();
+		}
+		else { gameState.snake.pop(); }
+	}
+}
+
+
+//-------------------------------------------------------------------------------------------------------------------------------
+
+
+function gameOver()
+{
+	gameState.screen = 'menu';
+	if(gameState.score > gameState.bestScore)
+	{
+		// If a new best score has been achieved,
+		// update the bestScore and newBest flag
+		// accordingly
+		gameState.bestScore	= gameState.score;
+		gameState.newBest	= true;
+	}
+}
+
+
+//---------------------------------------------------------------------------------------------------------------------------------
+//When the page loads we need to update our pointer to the Canvas 2D drawing context (ctx)
+
+
+</script>
+</html>

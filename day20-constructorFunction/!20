@@ -1,0 +1,67 @@
+-* Constructor Function: (like the benefit frm class)
+    -> Reusability of code.
+    -> Blueprint for an object.
+    -> where we can specify all the properties and methods that must be available to those objects.
+    -> These properties will be defined on each User Instance(i.e, new Object), that is created, so, values will be different for different user.
+    -> If we want to create n-number of objects with similar properties ans methods, we just need to create a constructor function and to encapsulate the main functionality inside that.
+
+- A function's prototype: 
+    -> A function's prototype is the object instance that will become the prototype for all objects created using this function as a constructor.
+- An object's prototype: 
+    -> An object prototype is the object instance from which the object is inherited.
+
+- Encapsulation:
+    -> wrapping up of data(properties and methods) under a single unit.
+    -> It is the mechanism that binds together code and the data it manipulates.
+    -> Other way to think about encapsulation is, it is a protective shield that prevents the data from being accessed by the code outside this shield.
+    -> Encapsulation binds properties and methods together and hides their complexity from other constructor functions.
+     
+    
+-* 'this' keyword:
+    -> Inside Constructor Function: The value of 'this' keyword inside the Constructor Function specifies that these properties will be unique to every instance of the user object.
+    -> e.g, Instead of using 'this.name =name' if we mentioned 'name = name'   => p1.name = undefined.
+    
+    ->'this' values in different scopes:
+    1) {}  -  Ouside the function (or) Inside the global scope (or) Inside the main function.
+    2) global object  -  Inside the function, Inside the call back function, Inside the function. expression.
+    3) Current object  -  Inside the main function.
+    4) Value of 'this' in the outer scope  -  Arrow function.
+
+
+    -> fix - 'this' :  
+    1) Creating the new variable(that, self) which refers to the current object(i.e, const that = this)
+    2) Using Arrow Function - Value of 'this' in the outer scope
+    3) Using bound function (.bind(this))
+
+
+- Arrow Function:
+    -> Only works for 'Function Expression & Call Back Functions'.
+    -> But not for 'Function Declaration'.
+
+
+- Higher Order Function:
+    -> In a higher order function, when one of the parameters passed in is a function, 
+    -> that function is a 'callback function' because it will be called back and used within the higher order function
+
+
+-* instanceof:    (var_Name instanceof dataType)
+    -> const obj_name = {};
+    console.log(obj_name instanceof Object);         //true
+    console.log(obj_name instanceof Array);          //false
+
+    -> const arr = [];
+    console.log(arr instanceof Array);       //true
+    console.log(arr instanceof Object);      //true  -> arrays's datatype = Object
+    console.log(arr instanceof Number);      //false
+
+- Closure:
+    -> Closure is simply a function defined within another function. (the inner function has access to the outer function's variable and parameter. they can overwrite them, too(i.e, manipulating the variables of their outer function))
+    -> Closure give access to an outer function scope from an inner function.
+    -> In js, Closures are created everytime the function is created, at function creation time.
+    -> The scope of closure in js is lexical.
+    -> ? public, private
+
+- Redux ?
+
+- methods:
+    -> actions that can be performed on objects
